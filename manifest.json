@@ -1,0 +1,15 @@
+{
+  "name": "Presupuestos Ferretería",
+  "short_name": "Presupuestos",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f8fbff",
+  "theme_color": "#102033",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

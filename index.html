@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102033">
+  <title>Presupuestos Ferretería</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="programa.css">
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
+  <script src="programa.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div>
+        <span class="badge">Ferretería</span>
+        <h1>Presupuestos</h1>
+        <p>Armá pedidos desde el celular o la computadora y exportá el presupuesto en Excel.</p>
+      </div>
+      <div class="hero-actions">
+        <input id="priceFile" type="file" accept=".xlsx,.xlsm,.xltx,.xltm" hidden>
+        <button class="button accent" id="pickFile" type="button">Cargar lista</button>
+        <button class="button primary" id="exportQuote" type="button">Exportar Excel</button>
+        <button class="button quiet" id="clearQuote" type="button">Limpiar</button>
+      </div>
+    </header>
+
+    <section class="status-card" aria-live="polite">
+      <span id="statusText">Cargá tu lista de precios para empezar.</span>
+      <strong id="productCount">0 productos</strong>
+    </section>
+
+    <main class="main-grid">
+      <section class="left-stack">
+        <section class="panel quote-data" aria-label="Datos del presupuesto">
+          <label>Número
+            <input id="quoteNumber" type="text">
+          </label>
+          <label>Fecha
+            <input id="quoteDate" type="text">
+          </label>
+          <label>Cliente
+            <input id="clientName" type="text" placeholder="Nombre del cliente">
+          </label>
+          <label>Teléfono
+            <input id="clientPhone" type="text" placeholder="Contacto">
+          </label>
+          <label class="wide">Dirección / Observación
+            <input id="clientAddress" type="text" placeholder="Notas para este presupuesto">
+          </label>
+        </section>
+
+        <section class="panel catalog">
+          <div class="panel-heading">
+            <div>
+              <span class="badge light">Catálogo</span>
+              <h2>Productos</h2>
+            </div>
+            <div class="catalog-controls">
+              <input id="search" type="search" placeholder="Buscar código, producto, marca o índice">
+              <input id="quantity" type="number" min="0.01" step="0.01" value="1" aria-label="Cantidad">
+              <select id="priceMode" aria-label="Modo de precio"></select>
+            </div>
+          </div>
+
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Producto</th>
+                  <th>Marca</th>
+                  <th>Lista</th>
+                  <th>Neto</th>
+                  <th>100 unid.</th>
+                  <th><span class="sr-only">Agregar</span></th>
+                </tr>
+              </thead>
+              <tbody id="productsBody">
+                <tr><td colspan="7">Cargá una lista de precios para ver productos.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <aside class="right-stack">
+        <section class="panel cart">
+          <div class="panel-heading">
+            <div>
+              <span class="badge light">Pedido</span>
+              <h2>Presupuesto actual</h2>
+            </div>
+          </div>
+          <div class="empty-state" id="emptyQuote">Todavía no agregaste productos.</div>
+          <div class="quote-list" id="quoteList"></div>
+        </section>
+
+        <section class="panel totals-panel">
+          <div class="calc-grid">
+            <label>Descuento %
+              <input id="discount" type="number" min="0" step="0.01" value="0">
+            </label>
+            <label>IVA %
+              <input id="iva" type="number" min="0" step="0.01" value="21">
+            </label>
+            <label>Recargo / Flete
+              <input id="extra" type="number" min="0" step="0.01" value="0">
+            </label>
+          </div>
+
+          <dl class="totals">
+            <div><dt>Subtotal</dt><dd id="subtotal">$ 0,00</dd></div>
+            <div><dt>Descuento</dt><dd id="discountAmount">$ 0,00</dd></div>
+            <div><dt>IVA</dt><dd id="ivaAmount">$ 0,00</dd></div>
+          </dl>
+
+          <div class="grand-total">
+            <span>Total</span>
+            <strong id="total">$ 0,00</strong>
+          </div>
+        </section>
+      </aside>
+    </main>
+  </div>
+</body>
+</html>
